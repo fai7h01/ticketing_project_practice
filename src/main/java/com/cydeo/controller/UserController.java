@@ -1,6 +1,5 @@
 package com.cydeo.controller;
 
-import com.cydeo.bootstrap.DataGenerator;
 import com.cydeo.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +15,7 @@ public class UserController {
     public String createUser(Model model){
 
         model.addAttribute("user", new User());
-        model.addAttribute("roles", DataGenerator.listOfRoles());
+        //model.addAttribute("roles", DataGenerator.listOfRoles());
 
         return "/user/create";
     }
