@@ -1,9 +1,11 @@
 package com.cydeo.controller;
 
 import com.cydeo.dto.TaskDTO;
+import com.cydeo.enums.Status;
 import com.cydeo.service.ProjectService;
 import com.cydeo.service.TaskService;
 import com.cydeo.service.UserService;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -68,5 +70,24 @@ public class TaskController {
 
         return "redirect:/task/create";
     }
+
+
+    @GetMapping("/employee/pending-tasks")
+    public String getEmployeePendingTasks(Model model){
+
+        model.addAttribute("tasks",taskService.findTasksByStatusIsNot(Status.COMPLETE));
+
+        return "/task/pending-tasks";
+    }
+
+    @GetMapping("/employee/edit/{id}")
+    public String employeeEditTask(@PathVariable Long id, Model model){
+
+
+
+        return "/task/status-update";
+    }
+
+
 
 }
