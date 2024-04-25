@@ -18,6 +18,7 @@ public class UserDTOConverter implements Converter<String, UserDTO> {
 
     @Override
     public UserDTO convert(String source) {
+        if (source == null || source.equals("")) return null;
         return userService.findById(source);
     }
 }
