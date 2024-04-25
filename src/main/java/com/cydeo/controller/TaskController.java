@@ -60,4 +60,13 @@ public class TaskController {
         return "redirect:/task/create";
     }
 
+
+    @GetMapping("/delete/{id}")
+    public String deleteTask(@PathVariable Long id){
+
+        taskService.deleteById(id);
+
+        return "redirect:/task/create";
+    }
+
 }
