@@ -12,4 +12,8 @@ public interface TaskService extends CRUDService<TaskDTO,Long>{
     List<TaskDTO> findTaskByManager(UserDTO manager);
 
     List<TaskDTO> findTasksByStatusIsNot(Status status);
+
+    List<TaskDTO> findTasksByStatus(Status status);
+
+    void updateStatus(TaskDTO task);
 }
