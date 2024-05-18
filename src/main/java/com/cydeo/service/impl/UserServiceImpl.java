@@ -2,52 +2,29 @@ package com.cydeo.service.impl;
 
 import com.cydeo.dto.UserDTO;
 import com.cydeo.service.UserService;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
-public class UserServiceImpl extends AbstractMapService<UserDTO, String> implements UserService {
-
-
+public class UserServiceImpl implements UserService {
     @Override
-    public UserDTO save(UserDTO object) {
-        return super.save(object.getUserName(), object);
+    public List<UserDTO> findAllUsers() {
+        return null;
     }
 
     @Override
-    public UserDTO findById(String username) {
-        return super.findById(username);
+    public UserDTO findById(Long id) {
+        return null;
     }
 
     @Override
-    public List<UserDTO> findAll() {
-        return super.findAll();
+    public void save(UserDTO user) {
+
     }
 
     @Override
-    public void deleteById(String username) {
-        super.deleteById(username);
-    }
+    public void deleteByUserName(String username) {
 
-    @Override
-    public void update(UserDTO user) {
-        super.update(user.getUserName(),user);
-    }
-
-    @Override
-    public List<UserDTO> findManagers() {
-        return findAll().stream()
-                .filter(user -> user.getRole().getId() == 2)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<UserDTO> findEmployees() {
-        return findAll().stream()
-                .filter(user -> user.getRole().getId() == 3)
-                .collect(Collectors.toList());
     }
 }
