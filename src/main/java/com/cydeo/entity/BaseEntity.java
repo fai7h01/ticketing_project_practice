@@ -1,9 +1,6 @@
 package com.cydeo.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,5 +20,20 @@ public class BaseEntity {
     private Long insertUserId;
     private LocalDateTime lastUpdateDateTime;
     private Long lastUpdateUserId;
+    private boolean isDeleted;
+
+    @PrePersist
+    private void onPrePersist(){
+        this.insertDateTime = LocalDateTime.now();
+        this.insertUserId = 1L;
+        this.lastUpdateDateTime = LocalDateTime.now();
+        this.lastUpdateUserId = 1L;
+    }
+
+    @PreUpdate
+    private void onPreUpdate(){
+        this.lastUpdateUserId = 1L;
+        this.lastUpdateDateTime = LocalDateTime.now();
+    }
 
 }

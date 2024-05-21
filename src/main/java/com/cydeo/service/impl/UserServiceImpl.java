@@ -50,4 +50,11 @@ public class UserServiceImpl implements UserService {
         convertedDto.setId(entity.getId());
         userRepository.save(convertedDto);
     }
+
+    @Override
+    public void delete(String username) {
+        User user = userRepository.findByUserName(username);
+        user.setDeleted(true);
+        userRepository.save(user);
+    }
 }
