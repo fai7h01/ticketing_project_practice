@@ -61,20 +61,20 @@ public class ProjectController {
         projectService.update(project);
         return "redirect:/project/create";
     }
-//
-//    @GetMapping("/delete/{projectCode}")
-//    public String deleteProject(@PathVariable("projectCode") String id){
-//        projectService.deleteById(id);
-//        return "redirect:/project/create";
-//    }
-//
-//    @GetMapping("/complete/{projectCode}")
-//    public String completeProject(@PathVariable("projectCode") String id){
-//        projectService.complete(projectService.findById(id));
-//        return "redirect:/project/create";
-//    }
-//
-//
+
+    @GetMapping("/delete/{projectCode}")
+    public String deleteProject(@PathVariable("projectCode") String id){
+        projectService.delete(id);
+        return "redirect:/project/create";
+    }
+
+    @GetMapping("/complete/{projectCode}")
+    public String completeProject(@PathVariable("projectCode") String id){
+        projectService.complete(id);
+        return "redirect:/project/create";
+    }
+
+
 //    @GetMapping("/manager/project-status")
 //    public String getProjectByManager(Model model){
 //        UserDTO manager = userService.findById("john@cydeo.com");

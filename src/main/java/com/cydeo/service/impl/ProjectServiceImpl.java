@@ -54,7 +54,16 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void delete(ProjectDTO dto) {
+    public void delete(String projectCode) {
+        Project project = projectRepository.findByProjectCode(projectCode);
+        project.setDeleted(true);
+        projectRepository.save(project);
+    }
 
+    @Override
+    public void complete(String code) {
+       Project project = projectRepository.findByProjectCode(code);
+       project.setProjectStatus(Status.COMPLETE);
+       projectRepository.save(project);
     }
 }

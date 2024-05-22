@@ -10,6 +10,7 @@ public interface ProjectService {
     ProjectDTO findByProjectCode(String code);
     void save(ProjectDTO dto);
     void update(ProjectDTO dto);
-    void delete(ProjectDTO dto);
+    void delete(String code);
+    void complete(String code);
 
 }
