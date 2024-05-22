@@ -31,17 +31,17 @@ public class ProjectController {
         model.addAttribute("projects",projectService.listAllProjects());
         return "/project/create";
     }
-//
-//    @PostMapping("/create")
-//    public String insertProject(@Valid @ModelAttribute("project") ProjectDTO project, BindingResult bindingResult, Model model){
-//        if (bindingResult.hasErrors()){
-//            model.addAttribute("managers",userService.findManagers());
-//            model.addAttribute("projects",projectService.findAll());
-//            return "/project/create";
-//        }
-//        projectService.save(project);
-//        return "redirect:/project/create";
-//    }
+
+    @PostMapping("/create")
+    public String insertProject(@Valid @ModelAttribute("project") ProjectDTO project, BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()){
+            model.addAttribute("managers",userService.listAllByRole("manager"));
+            model.addAttribute("projects",projectService.listAllProjects());
+            return "/project/create";
+        }
+        projectService.save(project);
+        return "redirect:/project/create";
+    }
 //
 //    @GetMapping("/update/{projectCode}")
 //    public String editProject(@PathVariable("projectCode") String id, Model model){
