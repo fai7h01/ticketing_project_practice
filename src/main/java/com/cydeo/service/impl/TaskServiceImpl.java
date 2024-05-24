@@ -1,6 +1,7 @@
 package com.cydeo.service.impl;
 
 import com.cydeo.dto.TaskDTO;
+import com.cydeo.entity.Task;
 import com.cydeo.enums.Status;
 import com.cydeo.mapper.TaskMapper;
 import com.cydeo.repository.TaskRepository;
@@ -43,7 +44,12 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void update(TaskDTO dto) {
-
+        Task entity = taskRepository.findById(dto.getId()).get();
+        Task convertedDto = taskMapper.convertToEntity(dto);
+        convertedDto.setId(entity.getId());
+        convertedDto.setAssignedDate(entity.getAssignedDate());
+        convertedDto.setStatus(Status.OPEN);
+        taskRepository.save(convertedDto);
     }
 
     @Override
