@@ -30,8 +30,8 @@ public class Task extends BaseEntity{
     private Project project;
 
     @ManyToOne
-    @JoinColumn(name = "manager_id")
-    private User assignedManager;
+    @JoinColumn(name = "employee_id")
+    private User assignedEmployee;
 
 
 }
