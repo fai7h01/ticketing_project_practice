@@ -52,7 +52,8 @@ public class TaskServiceImpl implements TaskService {
         Task convertedDto = taskMapper.convertToEntity(dto);
         convertedDto.setId(entity.getId());
         convertedDto.setAssignedDate(entity.getAssignedDate());
-        convertedDto.setTaskStatus(Status.OPEN);
+        if (dto.getStatus() == null)
+            convertedDto.setTaskStatus(Status.OPEN);
         taskRepository.save(convertedDto);
     }
 
@@ -79,4 +80,5 @@ public class TaskServiceImpl implements TaskService {
                 .map(taskMapper::convertTODto)
                 .collect(Collectors.toList());
     }
+
 }
