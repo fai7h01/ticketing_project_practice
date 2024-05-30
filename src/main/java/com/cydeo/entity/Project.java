@@ -25,6 +25,7 @@ public class Project extends BaseEntity{
     private LocalDate endDate;
     @Enumerated(EnumType.STRING)
     private Status projectStatus;
+    private String projectDetail;
 
     @ManyToOne
     @JoinColumn(name = "manager_id")

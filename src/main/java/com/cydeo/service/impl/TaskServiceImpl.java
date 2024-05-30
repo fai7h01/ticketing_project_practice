@@ -1,8 +1,10 @@
 package com.cydeo.service.impl;
 
+import com.cydeo.dto.ProjectDTO;
 import com.cydeo.dto.TaskDTO;
 import com.cydeo.entity.Task;
 import com.cydeo.enums.Status;
+import com.cydeo.mapper.ProjectMapper;
 import com.cydeo.mapper.TaskMapper;
 import com.cydeo.repository.TaskRepository;
 import com.cydeo.service.TaskService;
@@ -17,10 +19,12 @@ public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
+    private final ProjectMapper projectMapper;
 
-    public TaskServiceImpl(TaskRepository taskRepository, TaskMapper taskMapper) {
+    public TaskServiceImpl(TaskRepository taskRepository, TaskMapper taskMapper, ProjectMapper projectMapper) {
         this.taskRepository = taskRepository;
         this.taskMapper = taskMapper;
+        this.projectMapper = projectMapper;
     }
 
     @Override
@@ -48,7 +52,7 @@ public class TaskServiceImpl implements TaskService {
         Task convertedDto = taskMapper.convertToEntity(dto);
         convertedDto.setId(entity.getId());
         convertedDto.setAssignedDate(entity.getAssignedDate());
-        convertedDto.setStatus(Status.OPEN);
+        convertedDto.setTaskStatus(Status.OPEN);
         taskRepository.save(convertedDto);
     }
 
@@ -57,5 +61,15 @@ public class TaskServiceImpl implements TaskService {
         Task task = taskRepository.findById(id).get();
         task.setDeleted(true);
         taskRepository.save(task);
+    }
+
+    @Override
+    public int findCompletedTaskCount(ProjectDTO projectDTO) {
+        return taskRepository.completedTasksCount(projectMapper.convertToEntity(projectDTO));
+    }
+
+    @Override
+    public int findUnfinishedTaskCount(ProjectDTO projectDTO) {
+        return taskRepository.unfinishedTasksCount(projectMapper.convertToEntity(projectDTO));
     }
 }

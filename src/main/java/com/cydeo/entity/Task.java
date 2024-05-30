@@ -22,7 +22,7 @@ public class Task extends BaseEntity{
     private String taskSubject;
     private String taskDetail;
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status taskStatus;
     @Column(columnDefinition = "DATE")
     private LocalDate assignedDate;
 
@@ -30,7 +30,7 @@ public class Task extends BaseEntity{
     private Project project;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id")
+    @JoinColumn(name = "assigned_employee_id")
     private User assignedEmployee;
 
 
