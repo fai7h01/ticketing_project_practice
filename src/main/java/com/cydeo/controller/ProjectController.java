@@ -87,7 +87,4 @@ public class ProjectController {
         projectService.complete(id);
         return "redirect:/project/manager/project-status";
     }
-
-
-
 }

@@ -17,4 +17,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     int unfinishedTasksCount(Project project);
 
     List<Task> findByTaskStatusIsNot(Status status);
+
+    List<Task> findByTaskStatusIs(Status status);
 }

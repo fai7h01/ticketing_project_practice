@@ -9,11 +9,20 @@ import java.util.List;
 public interface TaskService {
 
     List<TaskDTO> listAllTasks();
+
     TaskDTO findById(Long id);
+
     void save(TaskDTO dto);
+
     void update(TaskDTO dto);
+
     void deleteById(Long id);
+
     int findCompletedTaskCount(ProjectDTO projectDTO);
+
     int findUnfinishedTaskCount(ProjectDTO projectDTO);
+
     List<TaskDTO> listAllByStatusIsNot(Status status);
+
+    List<TaskDTO> listAllByStatus(Status status);
 }

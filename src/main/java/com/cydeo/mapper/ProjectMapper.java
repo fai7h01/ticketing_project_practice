@@ -15,11 +15,11 @@ public class ProjectMapper {
     }
 
 
-    public Project convertToEntity(ProjectDTO dto){
+    public Project convertToEntity(ProjectDTO dto) {
         return mapper.map(dto, Project.class);
     }
 
-    public ProjectDTO convertToDto(Project entity){
+    public ProjectDTO convertToDto(Project entity) {
         return mapper.map(entity, ProjectDTO.class);
     }
 

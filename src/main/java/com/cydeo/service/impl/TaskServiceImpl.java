@@ -81,4 +81,10 @@ public class TaskServiceImpl implements TaskService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<TaskDTO> listAllByStatus(Status status) {
+        return taskRepository.findByTaskStatusIs(status).stream()
+                .map(taskMapper::convertTODto)
+                .collect(Collectors.toList());
+    }
 }

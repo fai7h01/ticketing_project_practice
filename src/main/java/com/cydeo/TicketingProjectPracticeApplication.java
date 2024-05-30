@@ -15,7 +15,7 @@ public class TicketingProjectPracticeApplication {
     }
 
     @Bean
-    public ModelMapper mapper(){
+    public ModelMapper mapper() {
         return new ModelMapper();
     }
 

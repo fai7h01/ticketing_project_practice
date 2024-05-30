@@ -47,7 +47,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void save(ProjectDTO dto) {
-        if (dto.getStatus() == null){
+        if (dto.getStatus() == null) {
             dto.setStatus(Status.OPEN);
         }
         projectRepository.save(projectMapper.convertToEntity(dto));
@@ -72,9 +72,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void complete(String code) {
-       Project project = projectRepository.findByProjectCode(code);
-       project.setProjectStatus(Status.COMPLETE);
-       projectRepository.save(project);
+        Project project = projectRepository.findByProjectCode(code);
+        project.setProjectStatus(Status.COMPLETE);
+        projectRepository.save(project);
     }
 
     @Override
@@ -84,6 +84,7 @@ public class ProjectServiceImpl implements ProjectService {
 
         return projects.stream()
                 .map(project -> {
+
                     ProjectDTO dto = projectMapper.convertToDto(project);
                     dto.setUnfinishedTask(taskService.findUnfinishedTaskCount(dto));
                     dto.setCompletedTask(taskService.findCompletedTaskCount(dto));
