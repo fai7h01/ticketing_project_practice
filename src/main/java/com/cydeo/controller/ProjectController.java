@@ -77,17 +77,16 @@ public class ProjectController {
 
     @GetMapping("/manager/project-status")
     public String getProjectByManager(Model model){
-     //   UserDTO manager = userService.findById("john@cydeo.com");
         List<ProjectDTO> projects = projectService.listAllProjectDetails();
         model.addAttribute("projects",projects);
         return "/manager/project-status";
     }
 
-//    @GetMapping("/manager/complete/{id}")
-//    public String managerCompleteProject(@PathVariable String id){
-//        projectService.complete(projectService.findById(id));
-//        return "redirect:/project/manager/project-status";
-//    }
+    @GetMapping("/manager/complete/{id}")
+    public String managerCompleteProject(@PathVariable String id){
+        projectService.complete(id);
+        return "redirect:/project/manager/project-status";
+    }
 
 
 

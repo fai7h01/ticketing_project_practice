@@ -14,5 +14,4 @@ public interface TaskService {
     void deleteById(Long id);
     int findCompletedTaskCount(ProjectDTO projectDTO);
     int findUnfinishedTaskCount(ProjectDTO projectDTO);
-
 }
