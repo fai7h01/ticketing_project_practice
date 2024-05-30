@@ -26,20 +26,20 @@ public class TaskController {
     }
 
     @GetMapping("/create")
-    public String createTask(Model model){
-        model.addAttribute("task",new TaskDTO());
-        model.addAttribute("projects",projectService.listAllProjects());
-        model.addAttribute("employees",userService.listAllByRole("employee"));
-        model.addAttribute("tasks",taskService.listAllTasks());
+    public String createTask(Model model) {
+        model.addAttribute("task", new TaskDTO());
+        model.addAttribute("projects", projectService.listAllProjects());
+        model.addAttribute("employees", userService.listAllByRole("employee"));
+        model.addAttribute("tasks", taskService.listAllTasks());
         return "/task/create";
     }
 
     @PostMapping("/create")
-    public String insertTask(@Valid @ModelAttribute("task") TaskDTO task, BindingResult bindingResult, Model model){
-        if (bindingResult.hasErrors()){
-            model.addAttribute("projects",projectService.listAllProjects());
-            model.addAttribute("employees",userService.listAllByRole("employee"));
-            model.addAttribute("tasks",taskService.listAllTasks());
+    public String insertTask(@Valid @ModelAttribute("task") TaskDTO task, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("projects", projectService.listAllProjects());
+            model.addAttribute("employees", userService.listAllByRole("employee"));
+            model.addAttribute("tasks", taskService.listAllTasks());
             return "/task/create";
         }
         taskService.save(task);
@@ -47,20 +47,20 @@ public class TaskController {
     }
 
     @GetMapping("/update/{id}")
-    public String editTask(@PathVariable("id") Long id, Model model){
-        model.addAttribute("task",taskService.findById(id));
-        model.addAttribute("projects",projectService.listAllProjects());
-        model.addAttribute("employees",userService.listAllByRole("employee"));
-        model.addAttribute("tasks",taskService.listAllTasks());
+    public String editTask(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("task", taskService.findById(id));
+        model.addAttribute("projects", projectService.listAllProjects());
+        model.addAttribute("employees", userService.listAllByRole("employee"));
+        model.addAttribute("tasks", taskService.listAllTasks());
         return "/task/update";
     }
 
     @PostMapping("/update/{id}")
-    public String updateTask(@Valid @ModelAttribute("task") TaskDTO task, BindingResult bindingResult, Model model){
-        if (bindingResult.hasErrors()){
-            model.addAttribute("projects",projectService.listAllProjects());
-            model.addAttribute("employees",userService.listAllByRole("employee"));
-            model.addAttribute("tasks",taskService.listAllTasks());
+    public String updateTask(@Valid @ModelAttribute("task") TaskDTO task, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("projects", projectService.listAllProjects());
+            model.addAttribute("employees", userService.listAllByRole("employee"));
+            model.addAttribute("tasks", taskService.listAllTasks());
             return "/task/update";
         }
         taskService.update(task);
@@ -69,18 +69,18 @@ public class TaskController {
 
 
     @GetMapping("/delete/{id}")
-    public String deleteTask(@PathVariable Long id){
+    public String deleteTask(@PathVariable Long id) {
         taskService.deleteById(id);
         return "redirect:/task/create";
     }
 
-//
-//    @GetMapping("/employee/pending-tasks")
-//    public String getEmployeePendingTasks(Model model){
-//        model.addAttribute("tasks",taskService.findTasksByStatusIsNot(Status.COMPLETE));
-//        return "/task/pending-tasks";
-//    }
-//
+
+    @GetMapping("/employee/pending-tasks")
+    public String getEmployeePendingTasks(Model model) {
+        model.addAttribute("tasks", taskService.listAllByStatusIsNot(Status.COMPLETE));
+        return "/task/pending-tasks";
+    }
+
 //    @GetMapping("/employee/edit/{id}")
 //    public String employeeEditTask(@PathVariable Long id, Model model){
 //        model.addAttribute("task",taskService.findById(id));

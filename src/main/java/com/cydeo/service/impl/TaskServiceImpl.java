@@ -72,4 +72,11 @@ public class TaskServiceImpl implements TaskService {
     public int findUnfinishedTaskCount(ProjectDTO projectDTO) {
         return taskRepository.unfinishedTasksCount(projectMapper.convertToEntity(projectDTO));
     }
+
+    @Override
+    public List<TaskDTO> listAllByStatusIsNot(Status status) {
+        return taskRepository.findByTaskStatusIsNot(status).stream()
+                .map(taskMapper::convertTODto)
+                .collect(Collectors.toList());
+    }
 }
