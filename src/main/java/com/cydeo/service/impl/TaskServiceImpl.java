@@ -49,13 +49,13 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void update(TaskDTO dto) {
-        Task entity = taskRepository.findById(dto.getId()).get();
+        Optional<Task> foundTask = taskRepository.findById(dto.getId());
         Task convertedDto = taskMapper.convertToEntity(dto);
-        convertedDto.setId(entity.getId());
-        convertedDto.setAssignedDate(entity.getAssignedDate());
-        if (dto.getStatus() == null)
-            convertedDto.setTaskStatus(Status.OPEN);
-        taskRepository.save(convertedDto);
+        if (foundTask.isPresent()){
+            convertedDto.setTaskStatus(dto.getStatus() == null ? foundTask.get().getTaskStatus() : dto.getStatus());
+            convertedDto.setAssignedDate(foundTask.get().getAssignedDate());
+            taskRepository.save(convertedDto);
+        }
     }
 
     @Override
@@ -97,6 +97,17 @@ public class TaskServiceImpl implements TaskService {
         List<Task> tasks = taskRepository
                 .findAllByProject(projectMapper.convertToEntity(dto));
         tasks.forEach(task -> deleteById(task.getId()));
+    }
+
+    @Override
+    public void completeAllByProject(ProjectDTO dto) {
+        List<Task> tasks = taskRepository
+                .findAllByProject(projectMapper.convertToEntity(dto));
+        tasks.stream().map(taskMapper::convertTODto)
+                .forEach(taskDTO -> {
+                    taskDTO.setStatus(Status.COMPLETE);
+                    update(taskDTO);
+                });
     }
 
 }
