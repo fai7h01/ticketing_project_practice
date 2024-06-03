@@ -2,10 +2,12 @@ package com.cydeo.service.impl;
 
 import com.cydeo.dto.ProjectDTO;
 import com.cydeo.dto.TaskDTO;
+import com.cydeo.dto.UserDTO;
 import com.cydeo.entity.Task;
 import com.cydeo.enums.Status;
 import com.cydeo.mapper.ProjectMapper;
 import com.cydeo.mapper.TaskMapper;
+import com.cydeo.mapper.UserMapper;
 import com.cydeo.repository.TaskRepository;
 import com.cydeo.service.TaskService;
 import org.springframework.stereotype.Service;
@@ -21,11 +23,13 @@ public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
     private final ProjectMapper projectMapper;
+    private final UserMapper userMapper;
 
-    public TaskServiceImpl(TaskRepository taskRepository, TaskMapper taskMapper, ProjectMapper projectMapper) {
+    public TaskServiceImpl(TaskRepository taskRepository, TaskMapper taskMapper, ProjectMapper projectMapper, UserMapper userMapper) {
         this.taskRepository = taskRepository;
         this.taskMapper = taskMapper;
         this.projectMapper = projectMapper;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -108,6 +112,14 @@ public class TaskServiceImpl implements TaskService {
                     taskDTO.setStatus(Status.COMPLETE);
                     update(taskDTO);
                 });
+    }
+
+    @Override
+    public List<TaskDTO> listAllNonCompletedByAssignedEmployee(UserDTO employee) {
+        List<Task> tasks = taskRepository.findAllByTaskStatusIsNotAndAssignedEmployee(Status.COMPLETE, userMapper.convertToEntity(employee));
+        return tasks.stream()
+                .map(taskMapper::convertTODto)
+                .collect(Collectors.toList());
     }
 
 }

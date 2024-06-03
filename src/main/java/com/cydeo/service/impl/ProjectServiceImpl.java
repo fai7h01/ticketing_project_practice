@@ -1,6 +1,7 @@
 package com.cydeo.service.impl;
 
 import com.cydeo.dto.ProjectDTO;
+import com.cydeo.dto.UserDTO;
 import com.cydeo.entity.Project;
 import com.cydeo.entity.User;
 import com.cydeo.enums.Status;
@@ -94,5 +95,14 @@ public class ProjectServiceImpl implements ProjectService {
 
                     return dto;
                 }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProjectDTO> listAllNonCompletedByAssignedManager(UserDTO manager) {
+        List<Project> projects = projectRepository
+                .findAllByProjectStatusIsNotAndAssignedManager(Status.COMPLETE,userMapper.convertToEntity(manager));
+        return projects.stream()
+                .map(projectMapper::convertToDto)
+                .collect(Collectors.toList());
     }
 }
