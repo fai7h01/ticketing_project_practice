@@ -28,7 +28,7 @@ public class BaseEntity {
 
     @Column(nullable = false)
     private Long lastUpdateUserId;
-    private boolean isDeleted;
+    private Boolean isDeleted = false;
 
     @PrePersist
     private void onPrePersist(){

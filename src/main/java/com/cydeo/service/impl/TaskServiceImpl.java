@@ -66,7 +66,7 @@ public class TaskServiceImpl implements TaskService {
     public void deleteById(Long id) {
         Optional<Task> task = taskRepository.findById(id);
         if (task.isPresent()){
-            task.get().setDeleted(true);
+            task.get().setIsDeleted(true);
             taskRepository.save(task.get());
         }
 

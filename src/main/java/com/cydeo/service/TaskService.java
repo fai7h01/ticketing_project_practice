@@ -19,6 +19,10 @@ public interface TaskService {
 
     void deleteById(Long id);
 
+    void deleteAllByProject(ProjectDTO dto);
+
+    void completeAllByProject(ProjectDTO dto);
+
     int findCompletedTaskCount(ProjectDTO projectDTO);
 
     int findUnfinishedTaskCount(ProjectDTO projectDTO);
@@ -26,10 +30,6 @@ public interface TaskService {
     List<TaskDTO> listAllByStatusIsNot(Status status);
 
     List<TaskDTO> listAllByStatus(Status status);
-
-    void deleteAllByProject(ProjectDTO dto);
-
-    void completeAllByProject(ProjectDTO dto);
 
     List<TaskDTO> listAllNonCompletedByAssignedEmployee(UserDTO employee);
 }
