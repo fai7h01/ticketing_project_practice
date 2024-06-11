@@ -69,7 +69,6 @@ public class TaskServiceImpl implements TaskService {
             task.get().setIsDeleted(true);
             taskRepository.save(task.get());
         }
-
     }
 
     @Override
